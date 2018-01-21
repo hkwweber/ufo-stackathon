@@ -1,14 +1,22 @@
 {
   "name": "ufo-stackathon",
   "version": "1.0.0",
-  "description": "",
+  "description": "Hannahs ufo stackathon project",
+  "engines": {
+    "node": ">= 7.0.0"
+  },
   "main": "index.js",
   "scripts": {
     "start:dev": "webpack -w & nodemon server/app.js",
     "start": "npm run start:dev",
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "node script/seed.js",
-    "deploy": "script/deploy"
+    "deploy": "script/deploy",
+    "build-client": "webpack",
+    "build-client-watch": "webpack -w",
+    "start": "node server",
+    "start-dev": "NODE_ENV='development' npm run build-client-watch & npm run start-server",
+    "start-server": "nodemon server -e html,js,scss --ignore public"
   },
   "keywords": [],
   "author": "",
