@@ -51,6 +51,7 @@ function scrub(data) {
     description = description.replace(/&#44/gi, " ");
     description = description.replace(/&amp;/gi, "and");
     description = description.replace(/&#39/gi, "'");
+    description = description.replace(/&quot;/gi, '"');
 
     return {
       index,
