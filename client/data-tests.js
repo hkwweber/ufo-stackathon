@@ -56,7 +56,16 @@ let mapped = data.map((el, index) => {
 
   let absBatch = 6 * (Number(day) - 1) + innerBatch;
 
-  return { index, day, time, innerBatch, absBatch, note, latitude: Number(el.latitude), longitude: Number(el['longitude ']), comments: el.comments, date: el.datetime.split(' ')[0] };
+  let coord = [Number(el['longitude ']), Number(el.latitude)]
+
+  let description1 = el.comments
+  let description2 = description1.replace(/&#44/gi, " ");
+  let description = description2.replace(/&#39/gi, "'");
+
+
+  return { index, day, time, innerBatch, absBatch, note, description, coord, date: el.datetime.split(' ')[0] };
 });
+
+
 
 module.exports = {mapped};
