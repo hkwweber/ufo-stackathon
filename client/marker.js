@@ -25,23 +25,14 @@ const buildMarker = (coords, id, description, date) => {
   return new Marker(markerEl).setLngLat(coords).setPopup(popup);
 };
 
+const createAllMarkers = (dataArr, map) => {
+  for (let i = 0; i < dataArr.length; i++) {
+    let coord = dataArr[i].coord;
+    let description = dataArr[i].description;
+    let date = dataArr[i].date;
+    let mark = buildMarker(coord, i, description, date);
+    mark.addTo(map);
+  }
+}
 
-
-// // create the popup
-// var popup = new mapboxgl.Popup()
-//     .setText('Construction on the Washington Monument began in 1848.');
-
-// // create DOM element for the marker
-// var el = document.createElement('div');
-// el.id = 'marker';
-
-// // create the marker
-// new mapboxgl.Marker(el)
-//     .setLngLat(monument)
-//     .setPopup(popup) // sets a popup on this marker
-//     .addTo(map);
-
-
-
-
-module.exports = buildMarker;
+module.exports = {buildMarker, createAllMarkers};

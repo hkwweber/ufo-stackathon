@@ -1,4 +1,4 @@
-const regionNotesStandard = {
+const standardNotes = {
   pacific: "A#4",
   mountain: "F4",
   westNC: "D#4",
@@ -11,7 +11,7 @@ const regionNotesStandard = {
   unknown: "C5"
 };
 
-const regionNotesMinor = {
+const minorNotes = {
   pacific: "D4",
   mountain: "F4",
   westNC: "A4",
@@ -24,4 +24,4 @@ const regionNotesMinor = {
   unknown: "C4"
 };
 
-module.exports = {regionNotesStandard, regionNotesMinor}
+module.exports = {standardNotes, minorNotes}
