@@ -1,95 +1,115 @@
 const mapboxgl = require("mapbox-gl");
 const d3 = require("d3");
-const Tone = require('tone');
+const Tone = require("tone");
 const api = require("./api");
-const buildMarker = require("./marker.js");
-const {july, august} = require('./data-clean')
-const {regionNotesStandard, regionNotesMinor} = require('./regionsToNotes');
+const { createAllMarkers } = require("./marker.js");
+const { JULY, AUGUST } = require("./data-clean");
+const { standardNotes, minorNotes } = require("./regionsToNotes");
+const { batcher, mapDataToNotes } = require("./utility-funcs");
 
 
-//MAP STUFF
+const monthObj = {
+  JULY: JULY,
+  AUGUST: AUGUST
+};
 
-mapboxgl.accessToken = "pk.eyJ1IjoiaGt3d2ViZXIiLCJhIjoiY2phOXRuaHRmMGJycDJ3cXR5bG43ZnJ3OCJ9.9neIakt1D1GK-lPDN6sh5Q";
+const state = {
+  month: "JULY",
+  year: "1999",
+  rawData: JULY,
+  noteSet: standardNotes
+};
+
+//CREATE MAP
+mapboxgl.accessToken =
+  "pk.eyJ1IjoiaGt3d2ViZXIiLCJhIjoiY2phOXRuaHRmMGJycDJ3cXR5bG43ZnJ3OCJ9.9neIakt1D1GK-lPDN6sh5Q";
 
 var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/dark-v9',
-    center: [-98.106611, 39.318815],
-    zoom: 3.5
+  container: "map",
+  style: "mapbox://styles/mapbox/dark-v9",
+  center: [-98.106611, 39.318815],
+  zoom: 3.5
 });
 
-// const monthDataObj = {JULY: july, AUGUST: august };
+//INITIAL SETUP
+const mappedWithNotes = mapDataToNotes(state.rawData, state.noteSet);
 
-// const state = {
-//   month: 'JULY',
-//   year: '1999',
-//   data: july
-// }
+createAllMarkers(mappedWithNotes, map);
 
-let mappedWithNotes = july.map((el => {
-  return Object.assign(el, {note: regionNotesStandard[el.region]})
-}))
-
-
-////////////make all markers at beginning but hide them (opacity: 0)
-for (let i = 0; i < mappedWithNotes.length; i++) {
-  let coord = mappedWithNotes[i].coord;
-  let description = mappedWithNotes[i].description;
-  let date = mappedWithNotes[i].date
-      let mark = buildMarker(coord, i, description, date)
-      mark.addTo(map)
+//ON MONTH CHANGE
+d3.select("#month-selector").on("change", onMonthChange);
+function onMonthChange() {
+  // Tone.context.close()
+  d3.selectAll(".mapMarker").remove();
+  let newMonth = this.options[this.selectedIndex].value;
+  state.month = newMonth;
+  console.log("STATE MONTH", state.month);
+  state.rawData = monthObj[newMonth];
+  console.log("STATE: ", state);
+  createAllMarkers(mapDataToNotes(state.rawData, state.noteSet), map);
 }
 
+/////////////actual DOM manipulation
+const startButton = document.getElementById("start-button");
+const stopButton = document.getElementById("stop-button");
+const showButton = document.getElementById("show-markers");
+const hideButton = document.getElementById("hide-markers");
 
-console.log("mappedWithNotes!!!!!", mappedWithNotes);
-let selected = d3.select("#month-selector").node().value;
-console.log("SELECTED!!!!!", selected);
+startButton.onclick = function() {
+  d3.select("#month-counter").text(`${state.month} `);
+  d3.select("#year-counter").text(" 1999");
+  d3.select("#month-selector-container").style("visibility", "hidden");
 
-// d3.select("#month-selector").on("change", change)
-// function change() {
-//   d3.selectAll(".mapMarker").remove();
-//   let val = this.options[this.selectedIndex].vsalue
-//     state.month = val;
-//     mappedWithNotes = monthDataObj[val];
-// }
+  const mappedWithNotes = mapDataToNotes(state.rawData, state.noteSet);
+  const batchesForTone = batcher(mappedWithNotes);
+  Tone.context = new AudioContext()
+  const poly = new Tone.PolySynth(13, Tone.AMSynth).toMaster();
 
+  const part = new Tone.Part(function(time, value) {
+    poly.triggerAttackRelease(value.notes, "16n", time, value.velocity);
 
+    Tone.Draw.schedule(function() {
+      //longitude first
+      let day = " " + value.day + ", ";
+      d3.select("#day-counter").text(day);
 
-let reduced = mappedWithNotes.reduce((prev, curr) => {
-  if (prev[curr.day]) prev[curr.day].push(curr);
-  else prev[curr.day] = [curr];
-  return prev;
-}, {});
+      value.ind.forEach(i => {
+        let thisId = "#m" + i;
+        d3
+          .select(thisId)
+          .transition()
+          .style("opacity", "1")
+          .transition()
+          .style("opacity", "0");
+      });
+    });
+  }, batchesForTone).start(0);
 
-let batches = {};
+  Tone.Transport.start();
 
-for (var day in reduced) {
-  reduced[day].forEach(entry => {
-    if (!batches[entry.absBatch]) {
-      batches[entry.absBatch] = {}
-      batches[entry.absBatch].notes = [entry.note];
-      batches[entry.absBatch].ind = [entry.index];
-      batches[entry.absBatch].day = entry.day
-    }
-    else {
-      batches[entry.absBatch].notes.push(entry.note);
-      batches[entry.absBatch].ind.push(entry.index);
-    }
-  });
-}
+};
 
-let batchedArr = [];
-for (var batch in batches) {
-  let time = "0:" + batch/2; //time in time transport that we want this set of notes to play
-  batchedArr.push({ time, notes: batches[batch].notes, ind: batches[batch].ind, day: batches[batch].day });
-}
+stopButton.onclick = function() {
+  d3.selectAll("#day-counter, #month-counter, #year-counter").text("");
+  d3.select("#month-selector-container").style("visibility", "visible");
+  Tone.Transport.stop();
+  Tone.context.close()
 
-console.log("REDUCED", reduced);
-console.log("BATCHES: ", batches);
-console.log("BATCH ARRAY!!!!", batchedArr);
+};
 
+showButton.onclick = function() {
+  d3
+    .selectAll(".mapMarker")
+    .transition()
+    .style("opacity", "1");
+};
 
-/////////////////TONE JS STUFF
+hideButton.onclick = function() {
+  d3
+    .selectAll(".mapMarker")
+    .transition()
+    .style("opacity", "0");
+};
 
 ///////MESSING AROUND WITH DIFFERENT SOUNDS:
 // var freeverb = new Tone.Freeverb().toMaster();
@@ -107,47 +127,3 @@ console.log("BATCH ARRAY!!!!", batchedArr);
 // var reverb = new Tone.JCReverb(0.4).connect(Tone.Master);
 // var delay = new Tone.FeedbackDelay(0.5);
 // var synth = new Tone.PolySynth(13, Tone.AMSynth).chain(pingPong);
-
-
-///////////ACTUAL STUFF USING:
-let poly = new Tone.PolySynth(13, Tone.AMSynth).toMaster();
-
-let part = new Tone.Part(function(time, value) {
-  poly.triggerAttackRelease(value.notes, "16n", time, value.velocity);
-
-  Tone.Draw.schedule(function () {
-    //longitude first
-    let day = ' ' + value.day + ', '
-    d3.select("#day-counter").text(day);
-    console.log('DAY', value.day);
-    value.ind.forEach(i => {
-      let thisId = "#m" + i;
-      d3.select(thisId).transition().style("opacity", "1").transition().style("opacity", "0");
-    })
-  })
-}, batchedArr).start(0);
-
-/////////////actual DOM manipulation
-let startButton = document.getElementById("start-button");
-let stopButton = document.getElementById("stop-button");
-let showButton = document.getElementById("show-markers");
-let hideButton = document.getElementById("hide-markers");
-
-startButton.onclick = function() {
-  d3.select("#month-counter").text("JULY ");
-  d3.select("#year-counter").text(" 1999")
-  Tone.Transport.start();
-};
-
-stopButton.onclick = function() {
-  d3.selectAll("#day-counter, #month-counter, #year-counter").text("");
-  Tone.Transport.stop()
-}
-
-showButton.onclick = function() {
-  d3.selectAll(".mapMarker").transition().style("opacity", "1");
-}
-
-hideButton.onclick = function() {
-  d3.selectAll(".mapMarker").transition().style("opacity", "0");
-}

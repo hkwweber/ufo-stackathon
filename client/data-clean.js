@@ -67,7 +67,7 @@ function scrub(data) {
   return result;
 }
 
-const july = scrub(julyData);
-const august = scrub(augustData);
+const JULY = scrub(julyData);
+const AUGUST = scrub(augustData);
 
-module.exports = { july, august };
+module.exports = { JULY, AUGUST };

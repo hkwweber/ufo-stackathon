@@ -20,12 +20,18 @@
     <h1 id ="hey">MULDER MAP</h1>
     <div class="day-container"><span id="month-counter" class="dayC"></span><span id="day-counter" class="dayC"></span><span id="year-counter" class="dayC"></span></div>
     <div>
-    <button id="start-button" class="btn btn-default">CLICK ME</button>
-    <button id="stop-button" class="btn btn-default">STOP</button>
-    <select id="month-selector">
+      <div id="month-selector-container">
+      <label for="months">PICK A MONTH: </label>
+    <select id="month-selector" name="months">
       <option>JULY</option>
       <option>AUGUST</option>
+      <option>SEPTEMBER</option>
     </select>
+  </div>
+    <div>
+    <button id="start-button" class="btn btn-default">PLAY</button>
+    <button id="stop-button" class="btn btn-default">STOP</button>
+  </div>
   </div>
 
   <div id="vis-button-container">
