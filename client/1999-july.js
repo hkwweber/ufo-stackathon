@@ -1,4 +1,4 @@
-const data = [
+const julyData = [
   {
     datetime: "7/10/1999 00:55",
     city: "columbus",
@@ -3694,4 +3694,4 @@ const data = [
   }
 ];
 
-module.exports = {data};
+module.exports = {julyData};
