@@ -1,12 +1,13 @@
 {
-  "name": "trip-planner",
+  "name": "ufo-stackathon",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start:dev": "webpack -w & nodemon server/app.js",
     "start": "npm run start:dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "node script/seed.js"
   },
   "keywords": [],
   "author": "",
@@ -21,8 +22,12 @@
     "bootstrap": "3.3.5",
     "d3": "^4.12.2",
     "express": "^4.13.3",
+    "fs": "0.0.1-security",
+    "jsonfile": "^4.0.0",
     "mapbox-gl": "^0.40.1",
     "nunjucks": "^2.5.2",
+    "papaparse": "^4.3.6",
+    "path": "^0.12.7",
     "pg": "^4.5.5",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.4.0",

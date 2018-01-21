@@ -1,6 +1,6 @@
 const { Marker, Popup } = require("mapbox-gl");
 
-const iconUrl = "https://i.imgur.com/GpdwVEr.png";
+const url = "https://i.imgur.com/GpdwVEr.png";
 
 
 const buildMarker = (coords, id, description, date) => {
@@ -10,12 +10,15 @@ const buildMarker = (coords, id, description, date) => {
   markerEl.setAttribute("id", thisId);
   markerEl.setAttribute("class", "mapMarker");
   markerEl.style.backgroundSize = "contain";
-  markerEl.style.width = "20px";
-  markerEl.style.height = "20px";
+  markerEl.style.width = "23px";
+  markerEl.style.height = "23px";
   markerEl.style.opacity = "0";
-  markerEl.style.backgroundImage = `url(${iconUrl})`;
+  markerEl.style.backgroundImage = `url(${url})`;
+
+
 
   let popup = new Popup()
+
   popup.setText(`${date}: ${description}`)
 
 

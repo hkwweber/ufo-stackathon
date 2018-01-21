@@ -6,26 +6,33 @@
   <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width initial-scale=1.0'>
-    <title>Subway eat fresh</title>
+    <title>MULDER MAP</title>
+    <link rel="shortcut icon" href="alien-pic.ico" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.43.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.43.0/mapbox-gl.css' rel='stylesheet' />
     <link rel="stylesheet" href="/style.css" />
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   </head>
   <body>
-    <div id='map'></div>
+    <div class="custom-popup" id='map'></div>
     <div id='controls'>
     <h1 id ="hey">MULDER MAP</h1>
-    <div id="test">
-      <img class= "alien" src="https://i.imgur.com/GpdwVEr.png" />
-      <img class= "alien" src="https://i.imgur.com/GpdwVEr.png" />
-      <img class= "alien" src="https://i.imgur.com/GpdwVEr.png" />
-    </div>
-    <button id="start-button">CLICK ME</button>
-    <button id="stop-button">STOP</button>
-    <button id="show-markers">I WANT TO BELIEVE</button>
-    <button id="hide-markers">NEVERMIND</button>
     <div class="day-container"><span id="month-counter" class="dayC"></span><span id="day-counter" class="dayC"></span><span id="year-counter" class="dayC"></span></div>
+    <div>
+    <button id="start-button" class="btn btn-default">CLICK ME</button>
+    <button id="stop-button" class="btn btn-default">STOP</button>
+    <select id="month-selector">
+      <option>JULY</option>
+      <option>AUGUST</option>
+    </select>
+  </div>
+
+  <div id="vis-button-container">
+    <button id="show-markers" class="btn btn-default">I WANT TO BELIEVE</button>
+    <button id="hide-markers" class="btn btn-default">NEVERMIND</button>
+  </div>
+
     </div>
     <div id="app"></div>
     <script src="./bundle.js"></script>
