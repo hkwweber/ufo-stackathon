@@ -9953,12 +9953,14 @@ function onMonthChange() {
 const startButton = document.getElementById("start-button");
 const stopButton = document.getElementById("stop-button");
 const showButton = document.getElementById("show-markers");
-const hideButton = document.getElementById("hide-markers");
+// const hideButton = document.getElementById("hide-markers");
 
 startButton.onclick = function() {
   d3.select("#month-counter").text(`${state.month} `);
   d3.select("#year-counter").text(" 1999");
   d3.select("#month-selector-container").style("visibility", "hidden");
+  this.disabled = true;
+  d3.select("#show-markers").attr("disabled", true)
 
   const mappedWithNotes = mapDataToNotes(state.rawData, state.noteSet);
   const batchesForTone = batcher(mappedWithNotes);
@@ -9992,23 +9994,23 @@ startButton.onclick = function() {
 stopButton.onclick = function() {
   d3.selectAll("#day-counter, #month-counter, #year-counter").text("");
   d3.select("#month-selector-container").style("visibility", "visible");
+  d3.selectAll("#start-button, #show-markers").attr("disabled", null);
+
   Tone.Transport.stop();
   Tone.context.close()
 
 };
 
 showButton.onclick = function() {
+  console.log("THIS HTML", this.innerHTML)
+  let onShow = this.innerHTML === "I WANT TO BELIEVE";
+  let newText = onShow ? "THE TRUTH CAN STAY OUT THERE" : "I WANT TO BELIEVE"
+  let newOpacity = onShow ? "1" : "0"
+  this.innerHTML = newText;
   d3
     .selectAll(".mapMarker")
     .transition()
-    .style("opacity", "1");
-};
-
-hideButton.onclick = function() {
-  d3
-    .selectAll(".mapMarker")
-    .transition()
-    .style("opacity", "0");
+    .style("opacity", newOpacity);
 };
 
 ///////MESSING AROUND WITH DIFFERENT SOUNDS:
@@ -23611,9 +23613,9 @@ var __WEBPACK_AMD_DEFINE_RESULT__;(function(root, factory){
 
 	//UMD
 	if ( true ) {
-		!(__WEBPACK_AMD_DEFINE_RESULT__ = function() {
+		!(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
 			return factory();
-		}.call(exports, __webpack_require__, exports, module),
+		}).call(exports, __webpack_require__, exports, module),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	} else if (typeof module === "object") {
 		module.exports = factory();
@@ -47446,6 +47448,7 @@ function scrub(data) {
     description = description.replace(/&#44/gi, " ");
     description = description.replace(/&amp;/gi, "and");
     description = description.replace(/&#39/gi, "'");
+    description = description.replace(/&quot;/gi, '"');
 
     return {
       index,

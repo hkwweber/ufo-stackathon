@@ -13,13 +13,6 @@ body {
   left: 0;
 }
 
-/*OLD MAP STYLE */
-/*#map {
-  margin: auto;
-  width: 80%;
-  height: 80%;
-}
-*/
 #map {
       position:absolute;
       width: 100%;
@@ -41,8 +34,8 @@ color: white;
 #controls {
   z-index: 10;
   position: absolute;
-  margin-top: 10px;
-  margin-left: 10px;
+  margin-top: 15px;
+  margin-left: 15px;
 }
 
 #day-counter {
@@ -81,10 +74,15 @@ color: white;
 }
 
 #vis-button-container {
-  margin-top: 20px;
+  margin-top: 30px
 }
 
 
 label {
   color: white;
+}
+
+#show-markers {
+  font-weight: bold;
+  background-color: #8AFF49;
 }
