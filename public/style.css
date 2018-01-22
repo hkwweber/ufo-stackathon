@@ -95,8 +95,10 @@ label {
 }
 
 #show-markers {
+
+  color: #8AFF49;
+  background-color: grey;
   font-weight: bold;
-  background-color: #8AFF49;
 }
 
 #total-counter {
@@ -116,4 +118,9 @@ label {
 
 #btn-div {
   margin-top: 10px;
+}
+
+#start-button {
+  font-weight: bold;
+  background-color: #8AFF49;
 }

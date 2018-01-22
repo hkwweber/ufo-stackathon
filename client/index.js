@@ -18,13 +18,12 @@ const {
   DECEMBER
 } = require("./data-clean");
 const {
-  standardNotes,
   minorNotes,
-  secondMinorNotes,
   fourthNotes,
-  thirdNotes
+  thirdNotes,
+  test
 } = require("./regionsToNotes");
-const { batcher, mapDataToNotes, monthTotals } = require("./utility-funcs");
+const { batcher, mapDataToNotes, monthTotals} = require("./utility-funcs");
 
 const monthObj = {
   JANUARY: JANUARY,
@@ -45,7 +44,7 @@ const state = {
   month: "JANUARY",
   total: "133",
   rawData: JANUARY,
-  noteSet: fourthNotes
+  noteSet: minorNotes
 };
 
 //CREATE MAP
@@ -79,9 +78,7 @@ function onMonthChange() {
 
 /////////////actual DOM manipulation
 const startButton = document.getElementById("start-button");
-// const stopButton = document.getElementById("stop-button");
 const showButton = document.getElementById("show-markers");
-// const hideButton = document.getElementById("hide-markers");
 
 startButton.onclick = function() {
   let onStart = this.innerHTML === "LISTEN";
@@ -92,7 +89,6 @@ startButton.onclick = function() {
     d3
       .selectAll(".selector-container, #show-markers")
       .style("visibility", "hidden");
-    // d3.select("#show-markers").attr("disabled", true);
 
     const mappedWithNotes = mapDataToNotes(state.rawData, state.noteSet);
     const batchesForTone = batcher(mappedWithNotes);
@@ -199,7 +195,7 @@ startButton.onclick = function() {
             .transition()
             .style("opacity", "1")
             .transition()
-            .style("opacity", "0");
+            .style("opacity", "0").duration(300);
         });
       });
     }, batchesForTone).start(0);
@@ -216,10 +212,6 @@ startButton.onclick = function() {
   }
 };
 
-// stopButton.onclick = function() {
-
-// };
-
 showButton.onclick = function() {
   let onShow = this.innerHTML === "I WANT TO BELIEVE";
   let newText = onShow ? "THE TRUTH CAN STAY OUT THERE" : "I WANT TO BELIEVE";
@@ -235,11 +227,9 @@ showButton.onclick = function() {
     d3
       .selectAll(".selector-container, #start-button, #stop-button")
       .style("visibility", "hidden");
-    // d3.selectAll("#start-button, #stop-button").attr("disabled", true);
   } else {
     d3
       .selectAll(".selector-container, #start-button, #stop-button")
       .style("visibility", "visible");
-    // d3.selectAll("#start-button, #stop-button").attr("disabled", null);
   }
 };

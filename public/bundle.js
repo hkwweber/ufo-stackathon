@@ -9918,13 +9918,12 @@ const {
   DECEMBER
 } = __webpack_require__(468);
 const {
-  standardNotes,
   minorNotes,
-  secondMinorNotes,
   fourthNotes,
-  thirdNotes
+  thirdNotes,
+  test
 } = __webpack_require__(481);
-const { batcher, mapDataToNotes, monthTotals } = __webpack_require__(482);
+const { batcher, mapDataToNotes, monthTotals} = __webpack_require__(482);
 
 const monthObj = {
   JANUARY: JANUARY,
@@ -9945,7 +9944,7 @@ const state = {
   month: "JANUARY",
   total: "133",
   rawData: JANUARY,
-  noteSet: fourthNotes
+  noteSet: minorNotes
 };
 
 //CREATE MAP
@@ -9979,9 +9978,7 @@ function onMonthChange() {
 
 /////////////actual DOM manipulation
 const startButton = document.getElementById("start-button");
-// const stopButton = document.getElementById("stop-button");
 const showButton = document.getElementById("show-markers");
-// const hideButton = document.getElementById("hide-markers");
 
 startButton.onclick = function() {
   let onStart = this.innerHTML === "LISTEN";
@@ -9992,7 +9989,6 @@ startButton.onclick = function() {
     d3
       .selectAll(".selector-container, #show-markers")
       .style("visibility", "hidden");
-    // d3.select("#show-markers").attr("disabled", true);
 
     const mappedWithNotes = mapDataToNotes(state.rawData, state.noteSet);
     const batchesForTone = batcher(mappedWithNotes);
@@ -10099,7 +10095,7 @@ startButton.onclick = function() {
             .transition()
             .style("opacity", "1")
             .transition()
-            .style("opacity", "0");
+            .style("opacity", "0").duration(300);
         });
       });
     }, batchesForTone).start(0);
@@ -10116,10 +10112,6 @@ startButton.onclick = function() {
   }
 };
 
-// stopButton.onclick = function() {
-
-// };
-
 showButton.onclick = function() {
   let onShow = this.innerHTML === "I WANT TO BELIEVE";
   let newText = onShow ? "THE TRUTH CAN STAY OUT THERE" : "I WANT TO BELIEVE";
@@ -10135,12 +10127,10 @@ showButton.onclick = function() {
     d3
       .selectAll(".selector-container, #start-button, #stop-button")
       .style("visibility", "hidden");
-    // d3.selectAll("#start-button, #stop-button").attr("disabled", true);
   } else {
     d3
       .selectAll(".selector-container, #start-button, #stop-button")
       .style("visibility", "visible");
-    // d3.selectAll("#start-button, #stop-button").attr("disabled", null);
   }
 };
 
@@ -51422,19 +51412,20 @@ module.exports = {decemberData};
 /* 481 */
 /***/ (function(module, exports) {
 
-const standardNotes = {
-  pacific: "A#4",
-  mountain: "F4",
-  westNC: "D#4",
-  westSC: "F5",
-  eastNC: "G#4",
-  eastSC: "F3",
-  newEng: "A#3",
-  middleAtl: "D#3",
-  southAtl: "C4",
-  unknown: "C5"
-};
+// const standardNotes = {
+//   pacific: "A#4",
+//   mountain: "F4",
+//   westNC: "D#4",
+//   westSC: "F5",
+//   eastNC: "G#4",
+//   eastSC: "F3",
+//   newEng: "A#3",
+//   middleAtl: "D#3",
+//   southAtl: "C4",
+//   unknown: "C5"
+// };
 
+//melancholy one
 const minorNotes = {
   pacific: "D4",
   mountain: "F4",
@@ -51442,25 +51433,27 @@ const minorNotes = {
   westSC: "D5",
   eastNC: "F5",
   eastSC: "A5",
-  newEng: "D3",
+  newEng: "D6",
   middleAtl: "A3",
   southAtl: "F3",
   unknown: "C4"
 };
 
-const secondMinorNotes = {
-  pacific: "A4",
-  mountain: "C4",
-  westNC: "E4",
-  westSC: "B3",
-  eastNC: "C3",
-  eastSC: "G5",
-  newEng: "A3",
-  middleAtl: "B4",
-  southAtl: "E3",
-  unknown: "G4"
-}
+//ehhhh
+// const secondMinorNotes = {
+//   pacific: "A4",
+//   mountain: "C4",
+//   westNC: "E4",
+//   westSC: "B3",
+//   eastNC: "C5",
+//   eastSC: "G5",
+//   newEng: "A3",
+//   middleAtl: "B4",
+//   southAtl: "E5",
+//   unknown: "G4"
+// }
 
+//cool and spooky
 const thirdNotes = {
   pacific: "C4",
   mountain: "A4",
@@ -51487,7 +51480,20 @@ const fourthNotes = {
   unknown: "E4"
 }
 
-module.exports = {standardNotes, minorNotes, secondMinorNotes, thirdNotes, fourthNotes}
+const test = {
+  pacific: "C4",
+  mountain: "E4",
+  westNC: "E5",
+  westSC: "G#6",
+  eastNC: "C4",
+  eastSC: "G#4",
+  newEng: "C5",
+  middleAtl: "G#5",
+  southAtl: "C6",
+  unknown: "E4"
+}
+
+module.exports = { minorNotes, thirdNotes, fourthNotes, test}
 
 
 /***/ }),
