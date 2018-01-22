@@ -1,16 +1,17 @@
-const standardNotes = {
-  pacific: "A#4",
-  mountain: "F4",
-  westNC: "D#4",
-  westSC: "F5",
-  eastNC: "G#4",
-  eastSC: "F3",
-  newEng: "A#3",
-  middleAtl: "D#3",
-  southAtl: "C4",
-  unknown: "C5"
-};
+// const standardNotes = {
+//   pacific: "A#4",
+//   mountain: "F4",
+//   westNC: "D#4",
+//   westSC: "F5",
+//   eastNC: "G#4",
+//   eastSC: "F3",
+//   newEng: "A#3",
+//   middleAtl: "D#3",
+//   southAtl: "C4",
+//   unknown: "C5"
+// };
 
+//melancholy one
 const minorNotes = {
   pacific: "D4",
   mountain: "F4",
@@ -18,25 +19,27 @@ const minorNotes = {
   westSC: "D5",
   eastNC: "F5",
   eastSC: "A5",
-  newEng: "D3",
+  newEng: "D6",
   middleAtl: "A3",
   southAtl: "F3",
   unknown: "C4"
 };
 
-const secondMinorNotes = {
-  pacific: "A4",
-  mountain: "C4",
-  westNC: "E4",
-  westSC: "B3",
-  eastNC: "C3",
-  eastSC: "G5",
-  newEng: "A3",
-  middleAtl: "B4",
-  southAtl: "E3",
-  unknown: "G4"
-}
+//ehhhh
+// const secondMinorNotes = {
+//   pacific: "A4",
+//   mountain: "C4",
+//   westNC: "E4",
+//   westSC: "B3",
+//   eastNC: "C5",
+//   eastSC: "G5",
+//   newEng: "A3",
+//   middleAtl: "B4",
+//   southAtl: "E5",
+//   unknown: "G4"
+// }
 
+//cool and spooky
 const thirdNotes = {
   pacific: "C4",
   mountain: "A4",
@@ -63,4 +66,17 @@ const fourthNotes = {
   unknown: "E4"
 }
 
-module.exports = {standardNotes, minorNotes, secondMinorNotes, thirdNotes, fourthNotes}
+const test = {
+  pacific: "C4",
+  mountain: "E4",
+  westNC: "E5",
+  westSC: "G#6",
+  eastNC: "C4",
+  eastSC: "G#4",
+  newEng: "C5",
+  middleAtl: "G#5",
+  southAtl: "C6",
+  unknown: "E4"
+}
+
+module.exports = { minorNotes, thirdNotes, fourthNotes, test}
