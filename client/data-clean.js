@@ -1,5 +1,15 @@
-const { julyData } = require("./1999-july");
-const {augustData} = require("./1999-august");
+const { januaryData } = require("./1999-data/january");
+const { februaryData } = require("./1999-data/february");
+const { marchData } = require("./1999-data/march");
+const { aprilData } = require("./1999-data/april");
+const { mayData } = require("./1999-data/may");
+const { juneData } = require("./1999-data/june");
+const { julyData } = require("./1999-data/july");
+const {augustData} = require("./1999-data/august");
+const {septemberData} = require("./1999-data/september");
+const {octoberData} = require("./1999-data/october");
+const {novemberData} = require("./1999-data/november");
+const {decemberData} = require("./1999-data/december");
 
 function scrub(data) {
   let result = data.map((el, index) => {
@@ -67,8 +77,29 @@ function scrub(data) {
   });
   return result;
 }
-
+const JANUARY = scrub(januaryData);
+const FEBRUARY = scrub(februaryData);
+const MARCH = scrub(marchData);
+const APRIL = scrub(aprilData);
+const MAY = scrub(mayData);
+const JUNE = scrub(juneData);
 const JULY = scrub(julyData);
 const AUGUST = scrub(augustData);
+const SEPTEMBER = scrub(septemberData);
+const OCTOBER = scrub(octoberData);
+const NOVEMBER = scrub(novemberData);
+const DECEMBER = scrub(decemberData);
 
-module.exports = { JULY, AUGUST };
+module.exports = { JANUARY,
+  FEBRUARY,
+  MARCH,
+  APRIL,
+  MAY,
+  JUNE,
+  JULY,
+  AUGUST,
+  SEPTEMBER,
+  OCTOBER,
+  NOVEMBER,
+  DECEMBER
+};
