@@ -26,7 +26,7 @@ app.use(function(err, req, res, next) {
 });
 
 // listen on a port
-const port = 3000;
-app.listen(port, function() {
-   console.log("The server is listening closely on port", port)
+const PORT = 3000;
+app.listen(PORT, function() {
+   console.log("The server is listening closely on port", PORT)
 });
