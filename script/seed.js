@@ -65,51 +65,22 @@ let newFile = path.join(__dirname, '..', 'ufo-scrubbed-1999-august.js');
 
 // parsing CSV to JSON and writing a file
 
+//I MOVED UFO SCRUBBED DATA A DIRECTORY ABOVE THIS SO THIS WONT WORK UNTIL YOU MOVE IT BACK
 Papa.parse(fs.createReadStream(csvFile), {
   header: true,
   delimiter: ',',
-  // linebreak: '\n',
   complete: function(results) {
-    // console.log('!!!!!results', results.data.slice(results.data.length - 300, results.data.length - 240))
-    // let length = results.data.length;
-
-    // console.log('!!!', results.data.slice(length - 200, length - 150))
-
     let filt = results.data.filter(el => {
       // return el.datetime.indexOf('1999') > -1 //||
-      return el.datetime.indexOf('8') === 0 &&
+      return el.datetime.indexOf('12/') === 0 &&
       el.datetime.indexOf('1999') > -1
-    // el.datetime.indexOf('2001') > -1 ||
-    // el.datetime.indexOf('2002') > -1 ||
-    // el.datetime.indexOf('2003') > -1 ||
-    // el.datetime.indexOf('2004') > -1 //||
-    // el.datetime.indexOf('2005') > -1 ||
-    // el.datetime.indexOf('2006') > -1 ||
-    // el.datetime.indexOf('2007') > -1 ||
-    // el.datetime.indexOf('2008') > -1 ||
-    // el.datetime.indexOf('2009') > -1 ||
-    // el.datetime.indexOf('2010') > -1 ||
-    // el.datetime.indexOf('2011') > -1 ||
-    // el.datetime.indexOf('2012') > -1 ||
-    // el.datetime.indexOf('2013') > -1
-
-
     })
 
     console.log("FILTY: ", filt.length);
 
-    //to 200
-
-    // jsonfile.writeFile(newFile ,filt, (err) => {
-    //   if (err) throw err;
-    //   console.log("GOT IT");
-    // })
-    // console.log('FILTERED: ', filt);
-    // console.log("META", results.meta)
-    // data = results.data.slice(0,30);
-    // jsonfile.writeFile(newFile, results, (err) => {
-    //   if (err) throw err;
-    //   console.log('GOT IT');
-    // })
+    jsonfile.writeFile(newFile, filt, (err) => {
+      if (err) throw err;
+      console.log("GOT IT");
+    })
   }
 })

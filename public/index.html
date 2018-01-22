@@ -16,11 +16,19 @@
   </head>
   <body>
     <div class="custom-popup" id='map'></div>
-    <div id='controls'>
+    <div id="mulder">
     <h1 id ="hey">MULDER MAP</h1>
-    <div class="day-container"><span id="month-counter" class="dayC"></span><span id="day-counter" class="dayC"></span><span id="year-counter" class="dayC"></span></div>
+  </div>
+    <div id='controls'>
+    <div class="day-container" id="total-counter"></div>
+    <div id="ufo-sightings" >UFO SIGHTINGS</div>
+    <div class="day-container"><span id="month-counter" class="dayC"> </span><span id="day-counter" class="dayC"></span><span id="year-counter" class="dayC">1999</span></div>
+
     <div>
-      <div id="month-selector-container">
+      <div id="vis-button-container">
+    <button id="show-markers" class="btn btn-default">I WANT TO BELIEVE</button>
+  </div>
+      <div id="month-selector-container" class="selector-container">
       <label for="months">PICK A MONTH: </label>
     <select id="month-selector" name="months">
       <option>JANUARY</option>
@@ -37,16 +45,18 @@
       <option>DECEMBER</option>
     </select>
   </div>
-    <div>
-    <button id="start-button" class="btn btn-default">PLAY</button>
-    <button id="stop-button" class="btn btn-default">STOP</button>
+  <div id="mood-selector-container" class="selector-container">
+        <label for="moods">PICK A MOOD: </label>
+        <select id="mood-selector" name="moods">
+          <option>STANDARD</option>
+          <option>SPOOKY</option>
+          <option>NO TIME</option>
+        </select>
+      </div>
+    <div id="btn-div">
+    <button id="start-button" class="btn btn-default">LISTEN</button>
   </div>
   </div>
-
-  <div id="vis-button-container">
-    <button id="show-markers" class="btn btn-default">I WANT TO BELIEVE</button>
-  </div>
-
     </div>
     <div id="app"></div>
     <script src="./bundle.js"></script>

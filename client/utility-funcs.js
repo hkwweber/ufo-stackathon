@@ -41,4 +41,21 @@ const mapDataToNotes = (monthArr, notesObj) => {
   });
 }
 
-module.exports = { batcher, mapDataToNotes };
+const monthTotals = {
+  JANUARY: "133",
+  FEBRUARY: "159",
+  MARCH: "144",
+  APRIL: "144",
+  MAY: "162",
+  JUNE: "254",
+  JULY: "268",
+  AUGUST: "289",
+  SEPTEMBER: "362",
+  OCTOBER: "290",
+  NOVEMBER: "401",
+  DECEMBER: "199"
+};
+
+
+
+module.exports = { batcher, mapDataToNotes, monthTotals };

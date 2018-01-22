@@ -31,11 +31,18 @@ h1 {
 color: white;
 }
 
-#controls {
+#mulder {
   z-index: 10;
   position: absolute;
   margin-top: 15px;
-  margin-left: 15px;
+  margin-left: 28px;
+}
+
+#controls {
+  z-index: 10;
+  position: absolute;
+  margin-top: 110px;
+  margin-left: 28px;
 }
 
 #day-counter {
@@ -44,37 +51,42 @@ color: white;
 
 }
 
-.dayC {
+/*.dayC {
   color: white;
-  /*margin-top: 10px;*/
+  margin-top: 10px;
+  font-size: 30px;
+  font-weight: bold;
+}*/
+
+.day-container {
+  margin-top: 10px;
+  color: white;
   font-size: 30px;
   font-weight: bold;
 }
 
-.day-container {
-  margin-top: 10px;
-}
-
 .mapboxgl-popup {
-  max-width: 200px;
+  max-width: 250px;
 }
 
 .mapboxgl-popup-content {
   background-color: #717575;
   font-family: sans-serif;
   color: white;
-  /*font-weight: bold;*/
+  font-weight: bold;
   font-size: 14px;
 }
 
 #hey {
-  font-size: 50px;
+  font-size: 60px;
   color: #8AFF49;
   font-weight: bold;
 }
 
 #vis-button-container {
-  margin-top: 30px
+  /*margin-top: 30px*/
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 
@@ -85,4 +97,23 @@ label {
 #show-markers {
   font-weight: bold;
   background-color: #8AFF49;
+}
+
+#total-counter {
+  color: #ABB7BF;
+  font-size: 95px;
+  margin-bottom: -20px;
+  margin-top: -25px;
+}
+
+#ufo-sightings {
+  /*margin-top: 10px;*/
+  margin-bottom: 10px;
+  color: #ABB7BF;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#btn-div {
+  margin-top: 10px;
 }
