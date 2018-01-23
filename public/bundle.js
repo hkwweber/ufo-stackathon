@@ -9917,12 +9917,7 @@ const {
   NOVEMBER,
   DECEMBER
 } = __webpack_require__(468);
-const {
-  minorNotes,
-  fourthNotes,
-  thirdNotes,
-  test
-} = __webpack_require__(481);
+const { minorNotes,thirdNotes} = __webpack_require__(481);
 const { batcher, mapDataToNotes, monthTotals} = __webpack_require__(482);
 
 const monthObj = {
@@ -9944,7 +9939,8 @@ const state = {
   month: "JANUARY",
   total: "133",
   rawData: JANUARY,
-  noteSet: minorNotes
+  moods: {MELANCHOLY: minorNotes, SPOOKY: thirdNotes},
+  noteSet: thirdNotes
 };
 
 //CREATE MAP
@@ -9976,6 +9972,16 @@ function onMonthChange() {
   createAllMarkers(mapDataToNotes(state.rawData, state.noteSet), map);
 }
 
+//ON MOOD CHANGE:
+d3.select("#mood-selector").on("change", onMoodChange);
+function onMoodChange() {
+  let newMood = this.options[this.selectedIndex].value;
+  state.noteSet = state.moods[newMood];
+  console.log("STATE: ", state);
+
+}
+
+
 /////////////actual DOM manipulation
 const startButton = document.getElementById("start-button");
 const showButton = document.getElementById("show-markers");
@@ -9994,66 +10000,6 @@ startButton.onclick = function() {
     const batchesForTone = batcher(mappedWithNotes);
     Tone.context = new AudioContext();
 
-    //this is the original one - v solid
-    // const poly = new Tone.PolySynth(13, Tone.AMSynth).toMaster();
-
-    //this is very cool - kind of flutey?
-    //   const poly = new Tone.PolySynth(6, Tone.Synth, {
-    //   "portamento" : 0.0,
-    //   "oscillator": {
-    //       "type": "square4"
-    //   },
-    //   "envelope": {
-    //       "attack": 2,
-    //       "decay": 1,
-    //       "sustain": 0.2,
-    //       "release": 2
-    //   }
-    // }).toMaster();
-
-    //weird tom sounding thing idk
-    // const poly = new Tone.PolySynth(6, Tone.MembraneSynth, {
-    //     "pitchDecay"  : 0.1 ,
-    //   "octaves"  : 1.2 ,
-    //   "oscillator"  : {
-    //     "type"  : "sine"
-    // }  ,
-    //   "envelope"  : {
-    //     "attack"  : 0.2 ,
-    //     "decay"  : 0.8 ,
-    //     "sustain"  : 0.01 ,
-    //     "release"  : 1.4 ,
-    //     "attackCurve"  : "exponential"
-    //   }
-    //   }).toMaster();
-
-    //////this one was fine i guess
-    // const poly = new Tone.PolySynth(6, Tone.AMSynth, {
-    //   "harmonicity": 2,
-    //     "oscillator": {
-    //         "type": "amsine2",
-    //         "modulationType" : "sine",
-    //        "harmonicity": 1.01
-    //     },
-    //     "envelope": {
-    //         "attack": 0.006,
-    //         "decay": 4,
-    //         "sustain": 0.04,
-    //         "release": 1.2
-    //     },
-    //     "modulation" : {
-    //         "volume" : 13,
-    //         "type": "amsine2",
-    //         "modulationType" : "sine",
-    //        "harmonicity": 12
-    //     },
-    //     "modulationEnvelope" : {
-    //         "attack": 0.006,
-    //         "decay": 0.2,
-    //         "sustain": 0.2,
-    //         "release": 0.4
-    //     }
-    // }).toMaster()
 
     ////////this was the *super* cool one that needs high notes:
     const poly = new Tone.PolySynth(6, Tone.Synth, {
@@ -10068,14 +10014,6 @@ startButton.onclick = function() {
       }
     }).toMaster();
 
-    ////////////this was the middle one that worked pretty well:
-    // const poly = new Tone.PolySynth(4, Tone.Synth, {
-    //     "volume" : -8,
-    //     "oscillator" : {
-    //         "partials" : [1, 2, 5],
-    //     },
-    //     "portamento" : 0.005
-    // }).toMaster()
 
     const part = new Tone.Part(function(time, value) {
       poly.triggerAttackRelease(value.notes, "16n", time, value.velocity);
@@ -51457,43 +51395,72 @@ const minorNotes = {
 const thirdNotes = {
   pacific: "C4",
   mountain: "A4",
-  westNC: "B4",
-  westSC: "G#3",
-  eastNC: "C3",
-  eastSC: "A5",
+  westNC: "B5",
+  westSC: "G#5",
+  eastNC: "C6",
+  eastSC: "E4",
   newEng: "G#4",
-  middleAtl: "B3",
+  middleAtl: "B4",
   southAtl: "A3",
-  unknown: "E3"
+  unknown: "E5"
 }
 
-const fourthNotes = {
-  pacific: "C4",
-  mountain: "A4",
-  westNC: "A5",
-  westSC: "E6",
-  eastNC: "C4",
-  eastSC: "A5",
-  newEng: "C5",
-  middleAtl: "E5",
-  southAtl: "A6",
-  unknown: "E4"
-}
 
-const test = {
-  pacific: "C4",
-  mountain: "E4",
-  westNC: "E5",
-  westSC: "G#6",
-  eastNC: "C4",
-  eastSC: "G#4",
-  newEng: "C5",
-  middleAtl: "G#5",
-  southAtl: "C6",
-  unknown: "E4"
-}
+//not really using
+// const fourthNotes = {
+//   pacific: "C4",
+//   mountain: "A4",
+//   westNC: "A5",
+//   westSC: "E6",
+//   eastNC: "C4",
+//   eastSC: "A5",
+//   newEng: "C5",
+//   middleAtl: "E5",
+//   southAtl: "A6",
+//   unknown: "E4"
+// }
 
-module.exports = { minorNotes, thirdNotes, fourthNotes, test}
+// const laserNotes = {
+//   pacific: "C4",
+//   mountain: "A4",
+//   westNC: "A5",
+//   westSC: "E5",
+//   eastNC: "C4",
+//   eastSC: "A5",
+//   newEng: "C5",
+//   middleAtl: "E5",
+//   southAtl: "A5",
+//   unknown: "E4"
+// }
+
+// const lowerNotes = {
+//   pacific: "C4",
+//   mountain: "C2",
+//   westNC: "B3",
+//   westSC: "G3",
+//   eastNC: "C3",
+//   eastSC: "E4",
+//   newEng: "G2",
+//   middleAtl: "B2",
+//   southAtl: "G3",
+//   unknown: "E3"
+// }
+// // C4,E4,G4,B4
+
+// const test = {
+//   pacific: "C4",
+//   mountain: "E4",
+//   westNC: "E5",
+//   westSC: "G#6",
+//   eastNC: "C4",
+//   eastSC: "G#4",
+//   newEng: "C5",
+//   middleAtl: "G#5",
+//   southAtl: "C6",
+//   unknown: "E4"
+// }
+
+module.exports = { minorNotes, thirdNotes}
 
 
 /***/ }),
