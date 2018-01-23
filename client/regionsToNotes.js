@@ -43,40 +43,69 @@ const minorNotes = {
 const thirdNotes = {
   pacific: "C4",
   mountain: "A4",
-  westNC: "B4",
-  westSC: "G#3",
-  eastNC: "C3",
-  eastSC: "A5",
+  westNC: "B5",
+  westSC: "G#5",
+  eastNC: "C6",
+  eastSC: "E4",
   newEng: "G#4",
-  middleAtl: "B3",
+  middleAtl: "B4",
   southAtl: "A3",
-  unknown: "E3"
+  unknown: "E5"
 }
 
-const fourthNotes = {
-  pacific: "C4",
-  mountain: "A4",
-  westNC: "A5",
-  westSC: "E6",
-  eastNC: "C4",
-  eastSC: "A5",
-  newEng: "C5",
-  middleAtl: "E5",
-  southAtl: "A6",
-  unknown: "E4"
-}
 
-const test = {
-  pacific: "C4",
-  mountain: "E4",
-  westNC: "E5",
-  westSC: "G#6",
-  eastNC: "C4",
-  eastSC: "G#4",
-  newEng: "C5",
-  middleAtl: "G#5",
-  southAtl: "C6",
-  unknown: "E4"
-}
+//not really using
+// const fourthNotes = {
+//   pacific: "C4",
+//   mountain: "A4",
+//   westNC: "A5",
+//   westSC: "E6",
+//   eastNC: "C4",
+//   eastSC: "A5",
+//   newEng: "C5",
+//   middleAtl: "E5",
+//   southAtl: "A6",
+//   unknown: "E4"
+// }
 
-module.exports = { minorNotes, thirdNotes, fourthNotes, test}
+// const laserNotes = {
+//   pacific: "C4",
+//   mountain: "A4",
+//   westNC: "A5",
+//   westSC: "E5",
+//   eastNC: "C4",
+//   eastSC: "A5",
+//   newEng: "C5",
+//   middleAtl: "E5",
+//   southAtl: "A5",
+//   unknown: "E4"
+// }
+
+// const lowerNotes = {
+//   pacific: "C4",
+//   mountain: "C2",
+//   westNC: "B3",
+//   westSC: "G3",
+//   eastNC: "C3",
+//   eastSC: "E4",
+//   newEng: "G2",
+//   middleAtl: "B2",
+//   southAtl: "G3",
+//   unknown: "E3"
+// }
+// // C4,E4,G4,B4
+
+// const test = {
+//   pacific: "C4",
+//   mountain: "E4",
+//   westNC: "E5",
+//   westSC: "G#6",
+//   eastNC: "C4",
+//   eastSC: "G#4",
+//   newEng: "C5",
+//   middleAtl: "G#5",
+//   southAtl: "C6",
+//   unknown: "E4"
+// }
+
+module.exports = { minorNotes, thirdNotes}
