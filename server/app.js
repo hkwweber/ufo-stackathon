@@ -32,7 +32,7 @@ app.use(function(err, req, res, next) {
 });
 
 // listen on a port
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT// || 3000
 app.listen(PORT, function() {
    console.log("The server is listening closely on port", PORT)
 });
