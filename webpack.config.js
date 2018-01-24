@@ -17,6 +17,18 @@ module.exports = {
     filename: './public/bundle.js'
   },
   devtool: 'source-map',
+   module: {
+    loaders: [
+      {
+        test: /jsx?$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['es2015']
+        }
+      }
+    ]
+  },
   // When we're in development, we can use this handy live-reload plugin
   // to refresh the page for us every time we make a change to our client-side
   // files. It's like `nodemon` for the front end!
