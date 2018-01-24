@@ -13,12 +13,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // static file-serving middleware
 app.use(express.static(path.join(__dirname, "..", "public")));
 
+  app.use('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public/index.html'))
+  })
+
 // failed to catch req above means 404, forward to error handler
 app.use(function(req, res, next) {
   const err = new Error("Not Found");
   err.status = 404;
   next(err);
 });
+
+
 
 // handle any errors
 app.use(function(err, req, res, next) {
