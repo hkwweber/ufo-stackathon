@@ -32,9 +32,9 @@ app.use(function(err, req, res, next) {
 });
 
 // listen on a port
-const PORT = process.env.PORT// || 3000
-app.listen(PORT, function() {
-   console.log("The server is listening closely on port", PORT)
+// const PORT = process.env.PORT// || 3000
+app.listen(process.env.PORT || 3000, function() {
+   console.log("The server is listening closely on port")
 });
 
 module.exports = app;

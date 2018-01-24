@@ -8,13 +8,10 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "webpack -w & nodemon server/app.js",
-    "start": "node server",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/app.js",
     "seed": "node script/seed.js",
     "build-client": "webpack",
     "build-client-watch": "webpack -w",
-    "start-dev": "NODE_ENV='development' npm run build-client-watch & npm run start-server",
-    "start-server": "nodemon server -e html,js,scss --ignore public",
     "deploy": "git checkout -b deploy && webpack -p && git add -f public/bundle.js public/bundle.js.map && git commit --allow-empty -m 'Deploying' && git push --force heroku deploy:master && git checkout master && git branch -D deploy"
   },
   "keywords": [],
